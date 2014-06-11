@@ -13,10 +13,22 @@ function OpenFile()
 		var url = 	window.frames['main'].document.getElementById('PdfFileArea').src; //查找文件地址
 		//"http://public.ecidi.com/Catalog/FoxitToolView.asp?fileurl=http%3A//public.e…di.com/odworking/7DE51D_11181F0_2C2.pdf&engfilename=7DE51D_11181F0_2C2.pdf";
 		console.log(url);
-		var fileurl =getQueryStringRegExp(url,'fileurl');
+		var fileurl = getQueryStringRegExp(url,'fileurl');
 		console.log(fileurl);
 		if(fileurl)
 			window.location.assign(fileurl); 
+		else 
+		{
+			var PdfFileArea = window.frames['main'].document.getElementById('downloadfileArea');
+			if(PdfFileArea)
+			{
+				var a =  PdfFileArea.contentDocument.getElementsByTagName('a')[0];
+				//"FileView('http://public.ecidi.com/odworking/7DE6A_1113290_2C2.pdf','7DE6A_1113290_2C2.pdf')"
+				fileurl = a.getAttribute('onclick').substring(10,a.getAttribute('onclick').indexOf(',')-1);
+				console.log(fileurl);
+				window.location.assign(fileurl); 
+			}
+		}
 	}
 }
 
