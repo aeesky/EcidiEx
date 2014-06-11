@@ -1,0 +1,23 @@
+{
+  "name": "PDF viewer",
+  "version": "2.0",
+  "manifest_version": 2,
+  "description": "ecidi pdf viewer for chrome",
+  "browser_action": {
+    "default_icon": "on.png",
+    "default_popup":"pdf.html"
+  },
+  "background":{
+  "scripts":["js/options.js"]
+  },
+  "permissions": [
+    "http://oa.ecidi.com/"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*"],
+      "css": ["css/main.css"],
+      "js": ["js/ecidi.js"]
+    }
+  ]
+}

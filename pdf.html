@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <title>ecidi pdf viewer for chrome</title>
+    <style>
+      body {
+        min-width: 250px;
+        overflow-x: hidden;
+      }
+
+      img {
+        margin: 5px;
+        border: 2px solid black;
+        vertical-align: middle;
+        width: 75px;
+        height: 75px;
+      }
+    </style>
+
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: http://developer.chrome.com/extensions/contentSecurityPolicy.html
+     -->
+  <script src="js/options.js"></script>
+  </head>
+  <body>
+  <table id="maintable" cellpadding="1" width="230px" align="center" style="word-break:keep-all;">     
+    <tbody>
+    <tr>
+      <td>ecidi pdf viewer for chrome</td>
+    </tr>
+
+    <tr><td> 
+    <div id="opt_text"><strong>选项设置:</strong></div>
+    </td></tr> 
+
+    <tr><td> 
+    <div id="opt_text"><input type="checkbox" id="autoopen" onclick="save_options();" value="true" checked="true"> 自动跳转</div>
+    </td></tr>
+    <tr>
+    <td><div style="font-size:12px;float:left;"><a href="#" onclick="goFeedback();">联系作者 </a> </div>
+    </td></tr> 
+  </tbody></table>
+  </body>
+</html>
+
