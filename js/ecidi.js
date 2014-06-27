@@ -7,7 +7,8 @@ function getQueryStringRegExp(value,name)
 function OpenFile()
 {
 	//http://public.ecidi.com/Catalog/Public_ViewFilesframe.asp?htmlurl=../PublicArticls/2014/2014-5/187620.html&ID=187620&StrFolder=QYTZ&strCataName=%E5%85%A8%E9%99%A2%E9%80%9A%E7%9F%A5&X1=mKlMlL5KeM9L&X2=nLhIiMkAnDpDnArBnBmEDTBRtDpCtAvBwD
-	console.log('initial')
+	//var title = window.document.title;
+	//console.log('initial'+title);
 	if(window.document.location.pathname =="/Catalog/Public_ViewFilesframe.asp") //页面过滤
 	{
 		var url = 	window.frames['main'].document.getElementById('PdfFileArea').src; //查找文件地址
@@ -16,7 +17,11 @@ function OpenFile()
 		var fileurl = getQueryStringRegExp(url,'fileurl');
 		console.log(fileurl);
 		if(fileurl)
-			window.location.assign(fileurl); 
+		{
+			//window.location.assign(fileurl); 
+			window.frames['main'].document.getElementById('PdfFileArea').src = fileurl;
+			//window.document.title=title;
+		}
 		else 
 		{
 			var PdfFileArea = window.frames['main'].document.getElementById('downloadfileArea');
@@ -26,9 +31,12 @@ function OpenFile()
 				//"FileView('http://public.ecidi.com/odworking/7DE6A_1113290_2C2.pdf','7DE6A_1113290_2C2.pdf')"
 				fileurl = a.getAttribute('onclick').substring(10,a.getAttribute('onclick').indexOf(',')-1);
 				console.log(fileurl);
-				window.location.assign(fileurl); 
+				//window.location.assign(fileurl); 
+				window.frames['main'].document.getElementById('PdfFileArea').src = fileurl;
+				//window.document.title =title;
 			}
 		}
+		window.document.title = window.frames['main'].document.getElementById('main_content').innerText
 	}
 }
 
