@@ -72,20 +72,17 @@ function OpenFile() {
  * 过滤URL，选择需要执行的操作
  */
 function URLParse() {
-	$("body").click(function(e) {
-		console.log("body clicked!");
-		var url = GetSelectedTabURL();
-		if (url != "") {
-			Convert(url);
-		}
-		// if ($(e.target).is('a')||$(e.target).is('input:button'))
-		//     return;
-		// else{
-		//     showdialog();
-		// }
-
-	});
-
+	// $("body").click(function(e) {
+	// 	//if ($(e.target).is('a') || $(e.target).is('input:button')) 
+	// 	{
+	// 		console.log("click");
+	// 		window.setTimeout(function() {
+	// 			var url = GetSelectedTabURL();
+	// 			if (url != "")
+	// 				Convert(url);
+	// 		}, 1000);
+	// 	}
+	// });
 	//Request URL:http://public.ecidi.com/Public/Public_Query.asp?PKID=20814&strCataName=%u516C%u53F8%u6587%u4EF6&strURI=jcgswj&X1=nLjKmI5KaIbJ&X2=mKiLmIlBpBnBpCmEpDoEAQwMsCrEyEoBmA&_t=280971&_winid=w8725
 	if (window.document.location.pathname == "/Public/Public_Query.asp") {
 		Convert(window.document.location.href);
@@ -102,18 +99,37 @@ function URLParse() {
 		OpenFile();
 		console.log(window.document.location.href);
 	}
-
+	
 }
-// document.addEventListener('DOMContentLoaded', function () {
-//   OpenFile();
-// });
-window.onload = URLParse;
+
+function bindevent(e){
+	if ($(e.target).is('a') || $(e.target).is('input:button')) 
+	{
+		console.log("click");
+	}
+}
+function load(){
+	for (var i = 0; i < window.frames.length; i++) {
+		window.frames[i].document.body.onclick=function(e){bindevent(e)};
+	};
+	$("a").click(function(e) {
+		bindevent(e)
+		// if ($(e.target).is('a') || $(e.target).is('input:button')) 
+		// {
+		// 	console.log("click");
+		// }
+	});
+	window.setTimeout(function() {
+				URLParse();
+			}, 1000);
+}	
+window.onload = load();
 
 /**
  * 将列表数据转为可视界面
  */
 function Convert(url) {
-	if (url) {
+	if (typeof(url) != "undefined") {
 		var position = url.indexOf(".asp");
 		if (position <= 0)
 			return;
@@ -141,13 +157,13 @@ function Convert(url) {
 }
 
 function xmlToView(xml) {
-	console.log(xml);
-	document.getElementById(tabid).innerHTML = xml;
-}
-/**
- * 转换xml文件
- * @param {[type]} xml
- */
+		console.log(xml);
+		document.getElementById(tabid).innerHTML = xml;
+	}
+	/**
+	 * 转换xml文件
+	 * @param {[type]} xml
+	 */
 function Parse(xml) {
 	try //Firefox, Mozilla, Opera, etc. 
 	{
@@ -163,12 +179,12 @@ var tabid;
 function GetSelectedTabURL() {
 	var tabs = window.document.getElementsByClassName('mini-tabs-bodys')[0];
 	for (var i = 1; i <= tabs.childElementCount; i++) {
-		if (document.getElementById('mini-16$body$' + i).style.display != "none") {
+		if (tabs.children[i].style.display != "none") {
 			try {
-				tabid = 'mini-16$body$' + i;
+				tabid = tabs.children[i].id;
 				return document.getElementById(tabid).children[0].src;
 			} catch (e) {
-				console.log('mini-16$body$' + i)
+				console.log(tabid)
 			}
 		}
 	};

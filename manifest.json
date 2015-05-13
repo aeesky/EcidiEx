@@ -4,20 +4,20 @@
   "manifest_version": 2,
   "description": "ecidi pdf viewer for chrome",
   "browser_action": {
-    "default_icon": "on.png",
-    "default_popup":"pdf.html"
+    "default_icon": "HDYLogo.png",
+    "default_popup":"options.html"
   },
   "background":{
   "scripts":["js/options.js"]
   },
   "permissions": [
-    "http://oa.ecidi.com/"
+    "http://*.ecidi.com/"
   ],
   "content_scripts": [
     {
-      "matches": ["http://*/*"],
+      "matches": ["http://*.ecidi.com/*"],
       "css": ["css/main.css"],
-      "js": ["js/ecidi.js","js/jquery.js"]
+      "js": ["js/jquery.js","js/ecidi.js"]
     }
   ]
 }
